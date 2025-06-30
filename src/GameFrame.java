@@ -70,8 +70,12 @@ public class GameFrame extends MyFrame {
 					///敵eとプレイヤー弾が衝突していたら「あたり」と表示	
 						System.out.println("あたり");
 						hits++;
+						e.life--;
+					} 
+					if(e.life<=0) {
 						GameWorld.enemies.remove(j);
-					} else {
+					}
+					else {
 						j++;
 					}
 				}
@@ -88,7 +92,7 @@ public class GameFrame extends MyFrame {
 		  		
           
 		  public boolean checkHit(Character a,Character b) {
-		    	if (Math.abs(a.x-b.x)<=30 && Math.abs(a.y-b.y)<=30) {
+		    	if (Math.abs(a.x-b.x)<=20 && Math.abs(a.y-b.y)<=20) {
 		    		return true;
 		    	
 		    	} else {
