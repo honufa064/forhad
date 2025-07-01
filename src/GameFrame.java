@@ -4,28 +4,63 @@ public class GameFrame extends MyFrame {
 	public void run() {
 		GameWorld.Player=new Player(100,300,0,0);
 		addKeyListener(GameWorld.Player);
-		GameWorld.playerBullets=new Vector<PlayerBullet>();
-		GameWorld.enemies=new Vector<Enemy>();
-		GameWorld.enemies.add(new EnemyBase(100,50,1,0));
-		 while(true) {
-			 clear();
-			 GameWorld.Player.draw(this);
-			 GameWorld.Player.move();
-			 movePlayerBullets();
-			 moveEnemies();
-			 checkPlayerAndEnemies();
-			 checkPlayerBulletsAndEnemies();
-			 sleep(0.03);
-			 
-			
-			 
+		GameWorld.stage=1;
+		while(true) {
+			GameWorld.Player.x=100;
+			GameWorld.Player.y=300;
+
+			GameWorld.playerBullets=new Vector<PlayerBullet>();
+			GameWorld.enemies=new Vector<Enemy>();
+			GameWorld.enemies.add(new EnemyBase(100,50,GameWorld.stage,0));
+			GameWorld.enterpressed=false;
+			while(true) {
+				clear();
+				drawString("Stage = "+GameWorld.stage,
+						300,50,15);
+				drawString("Score ="+GameWorld.score,300,80,15);
+				GameWorld.Player.draw(this);
+				GameWorld.Player.move();
+				movePlayerBullets();
+				moveEnemies();
+				checkPlayerAndEnemies();
+				checkPlayerBulletsAndEnemies();
+				if (GameWorld.enemies.size()==0) {
+					setColor(0,0,0);
+					drawString("クリア!",100,200,40);
+					if (GameWorld.enterpressed) {
+						GameWorld.stage++;
+						break;
+					}
+
+				} else if (GameWorld.Player.y<0) {
+					setColor(0,0,0);
+					drawString("ゲームオーバー!",50,200,40);
+					if (GameWorld.enterpressed) {
+						GameWorld.stage=1;
+						GameWorld.score=0;
+						break;
+					}
+
+				}
+				sleep(0.03);
 		 }
+		}
 	}
 		public void moveEnemies() {	 
 			 for (int i=0 ; i<GameWorld.enemies.size();i++) {
 				 Enemy e=GameWorld.enemies.get(i);
 				 e.draw(this);
 				 e.move();
+			 }
+			 
+			 int i=0;
+			 while (i<GameWorld.enemies.size()) {
+				 Enemy e=GameWorld.enemies.get(i);
+				 if (e.y>400) {
+					 GameWorld.enemies.remove(i);
+				 } else {
+					 i++;
+				 }
 			 }
 			
 			 
@@ -73,6 +108,7 @@ public class GameFrame extends MyFrame {
 						e.life--;
 					} 
 					if(e.life<=0) {
+						GameWorld.score+=e.score;
 						GameWorld.enemies.remove(j);
 					}
 					else {
