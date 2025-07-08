@@ -28,11 +28,11 @@ public class Player extends Character implements KeyListener {
 		
 		if (e.getKeyCode()==KeyEvent.VK_SPACE) {
 			GameWorld.playerBullets.add(
-				new PlayerBullet(x,y,10,-10));
+				new PlayerBullet(x,y,5,-5));
 			    GameWorld.playerBullets.add(
-			    new PlayerBullet(x+10,y,2,-10)); 
+			    new PlayerBullet(x,y,0,-7)); 
 			    GameWorld.playerBullets.add(
-			    new PlayerBullet(x+10,y,-2,-10));
+			    new PlayerBullet(x,y,-5,-5));
 			  
 			
 			System.out.println( "騨の数= "+

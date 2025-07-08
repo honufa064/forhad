@@ -13,7 +13,7 @@ public class EnemyBase extends Enemy {
 	
 	public EnemyBase(double x,double y,double vx,double vy) {
 		super(x,y,vx,vy);
-		life=20+GameWorld.stage;
+		life=5+GameWorld.stage;
 		score=10;
 	}
 	public void move() {
