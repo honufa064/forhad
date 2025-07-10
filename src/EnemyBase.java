@@ -33,6 +33,10 @@ public class EnemyBase extends Enemy {
 			GameWorld.enemies.add(new CurveEnemy(x,y,0,GameWorld.stage));
 		}
 		
+		if(Math.random() <0.02) {
+			GameWorld.enemies.add(new HelloEnemy(x,y,0,GameWorld.stage));
+		}
+		
 	}
 
 }
